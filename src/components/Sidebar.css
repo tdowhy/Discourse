@@ -1,0 +1,26 @@
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    background-color: #414141;
+    z-index: 1;
+    overflow-x: hidden;
+    padding-top: 20px;
+    top: 0;
+    left: 0;
+    color: #f8f8ff;
+}
+
+.logo {
+    margin-top: 15px;
+    margin-left: 15px;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

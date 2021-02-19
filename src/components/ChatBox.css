@@ -1,0 +1,36 @@
+.chat-box {
+    background-color: blueviolet;
+    margin-top: 10px;
+    width: 88%;
+    margin-left: 210px;
+    height: 85%;
+    background-color: #414141;
+    color: #f8f8ff;
+}
+.inp-bar {
+    margin-top: 770px;
+}
+.message-bar {
+    margin-top: 778px;
+    width: 90%;
+}
+
+.message-bar:focus {
+    outline: none;
+}
+
+.emoji-btn {
+    height: 40px;
+    width: 50px;
+    background-color: #CA3E47!important;
+    color: #f8f8ff!important;
+    /* margin-left: 0 */
+}
+
+.emoji-mart-category-label {
+    display: none;
+}
+
+/* .button {
+    background-color: #CA3E47;
+} */

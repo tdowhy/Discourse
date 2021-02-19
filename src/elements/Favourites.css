@@ -1,0 +1,16 @@
+.favourites {
+    margin-top: 100px;
+    margin-left: 15px;
+}
+
+.favourites-title {
+    margin-left: 15px;
+    font-size: 90%;
+}
+
+.favourites ul {
+    width: 94%;
+    margin-left: 0;
+    padding: 5px;
+    position: relative;
+}
