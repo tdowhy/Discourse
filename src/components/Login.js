@@ -1,9 +1,12 @@
 import React from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
-import './Login.css'
+import './Login.css';
+import { Card } from 'react-bootstrap';
 
 const SignIn = (props) => {
     return (
+        // <Card>
+        //     <Card.Body>
         <MDBContainer className='signin-container'>
             <MDBRow>
                 <MDBCol md="6">
@@ -21,6 +24,8 @@ const SignIn = (props) => {
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
+        //     </Card.Body>
+        // <Card />
     )
 }
 
