@@ -1,31 +1,56 @@
-import React from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import React, { useState, useRef } from 'react'
 import './Login.css';
-import { Card } from 'react-bootstrap';
+import styled from 'styled-components';
+import { useAuth } from '../contexts/AuthContext';
+import { Form, Button, Card, Alert } from "react-bootstrap";
+import { useHistory } from 'react-router-dom';
 
 const SignIn = (props) => {
+    const emailRef = useRef();
+    const passwordRef = useRef();
+    const { login } = useAuth();
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            setError('');
+            setLoading(true);
+            await login(emailRef.current.value, passwordRef.current.value);
+            history.push('/')
+        } catch {
+            setError('Sign in failed.')
+        }
+        setLoading(false);
+    }
+
     return (
-        // <Card>
-        //     <Card.Body>
-        <MDBContainer className='signin-container'>
-            <MDBRow>
-                <MDBCol md="6">
-                    <form>
-                        <p className="h5 text-center mb-4">Login</p>
-                        <div className="grey-text">
-                        <MDBInput label="Type your email" icon="envelope" group type="email" validate error="wrong" success="right" />
-                        <MDBInput label="Type your password" icon="lock" group type="password" validate />
-                        </div>
-                        <div className="text-center">
-                            <MDBBtn>Login</MDBBtn>
-                            <MDBBtn onClick={props.buttonClick}>Create Account</MDBBtn>
-                        </div>
-                    </form>
-                </MDBCol>
-            </MDBRow>
-        </MDBContainer>
-        //     </Card.Body>
-        // <Card />
+        <>
+        <Card>
+        <Card.Body>
+          <h2 className="text-center mb-4">Sign Up</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form className="form-floating" onSubmit={handleSubmit}>
+            <Form.Group id="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" ref={emailRef} required />
+            </Form.Group>
+            <Form.Group id="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" ref={passwordRef} required />
+            </Form.Group>
+            <div className="text-center">
+            <Button disabled={loading} className="w-50" type="submit">
+              Sign In
+            </Button>
+            <Button onClick={props.buttonClick}>Create Account</Button>
+            </div>
+          </Form>
+        </Card.Body>
+      </Card>
+        </>
     )
 }
 

@@ -1,6 +1,9 @@
-import React, { useRef } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn } from 'mdbreact';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import { useAuth } from '../contexts/AuthContext';
+import './Login.css';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 
 const SignUp = (props) => {
 
@@ -8,6 +11,26 @@ const SignUp = (props) => {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
+    const { signup } = useAuth();
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false);
+    const history = useHistory();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+            return setError('Passwords do not match.');
+        }
+        try {
+            setError('');
+            setLoading(true);
+            await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
+            history.push('/')
+        } catch {
+            setError('Sign up failed.')
+        }
+        setLoading(false);
+    }
 
     const HoverText = styled.p`
 	color: #000;
@@ -18,25 +41,38 @@ const SignUp = (props) => {
 `
 
     return (
-        <MDBContainer className='signin-container'>
-            <MDBRow>
-                <MDBCol md="6">
-                    <form>
-                        <p className="h5 text-center mb-4">Sign Up</p>
-                        <div className="grey-text">
-                            <MDBInput label="Username" icon="user" group type="text" success="right" ref={usernameRef} />
-                            <MDBInput label="Email" icon="envelope" group type="email" validate error="wrong" success="right" ref={emailRef} />
-                            <MDBInput label="Password" icon="lock" group type="password" validate ref={passwordRef} />
-                            <MDBInput label="Confirm Password" icon="lock" group type="password" validate ref={passwordConfirmRef} />
-                            <HoverText onClick={props.buttonClick}>Back to sign in</HoverText>
-                        </div>
-                        <div className="text-center">
-                            <MDBBtn>Create Account</MDBBtn>
-                        </div>
-                    </form>
-                </MDBCol>
-            </MDBRow>
-        </MDBContainer>
+        <>
+        <Card>
+          <Card.Body>
+            <h2 className="text-center mb-4">Sign Up</h2>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form className="form-floating" onSubmit={handleSubmit}>
+            <Form.Group id="username">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="text" ref={usernameRef} required />
+              </Form.Group>
+              <Form.Group id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" ref={emailRef} required />
+              </Form.Group>
+              <Form.Group id="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" ref={passwordRef} required />
+              </Form.Group>
+              <Form.Group id="password-confirm">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control type="password" ref={passwordConfirmRef} required />
+              </Form.Group>
+              <HoverText onClick={props.buttonClick}>Back to sign in</HoverText>
+              <div className="text-center">
+                <Button disabled={loading} className="w-50" type="submit">
+                  Sign Up
+                </Button>
+              </div>
+            </Form>
+          </Card.Body>
+        </Card>
+        </>
     )
 }
 
