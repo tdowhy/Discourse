@@ -29,8 +29,8 @@ const SignIn = (props) => {
     return (
         <>
         <Card>
-        <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+        <Card.Body className="login-ctnr">
+          <h2 className="text-center mb-4">Sign In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form className="form-floating" onSubmit={handleSubmit}>
             <Form.Group id="email">
@@ -42,10 +42,10 @@ const SignIn = (props) => {
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <div className="text-center">
-            <Button disabled={loading} className="w-50" type="submit">
+            <Button id="login-btn" disabled={loading} className="w-50 login-btn" type="submit">
               Sign In
             </Button>
-            <Button onClick={props.buttonClick}>Create Account</Button>
+            <p className="unselectable" onClick={props.buttonClick}>Don't have an account? Sign Up</p>
             </div>
           </Form>
         </Card.Body>

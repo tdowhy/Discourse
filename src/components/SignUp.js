@@ -4,6 +4,8 @@ import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 const SignUp = (props) => {
 
@@ -16,6 +18,9 @@ const SignUp = (props) => {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
+    const db = firebase.firestore();
+    const usersRef = db.collection("Users");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
@@ -25,6 +30,7 @@ const SignUp = (props) => {
             setError('');
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
+            await usersRef.doc(usernameRef.current.value).set({favourites: [], channels: ['General'], directMessages: []})
             history.push('/')
         } catch {
             setError('Sign up failed.')
@@ -32,18 +38,10 @@ const SignUp = (props) => {
         setLoading(false);
     }
 
-    const HoverText = styled.p`
-	color: #000;
-	:hover {
-		color: #ed1212;
-		cursor: pointer;
-	}
-`
-
     return (
         <>
         <Card>
-          <Card.Body>
+          <Card.Body id="signup-ctnr" className="signup-container">
             <h2 className="text-center mb-4">Sign Up</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form className="form-floating" onSubmit={handleSubmit}>
@@ -63,11 +61,11 @@ const SignUp = (props) => {
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control type="password" ref={passwordConfirmRef} required />
               </Form.Group>
-              <HoverText onClick={props.buttonClick}>Back to sign in</HoverText>
               <div className="text-center">
-                <Button disabled={loading} className="w-50" type="submit">
+                <Button id="sign-btn" disabled={loading} className="w-50" type="submit">
                   Sign Up
                 </Button>
+                <p className="unselectable" onClick={props.buttonClick}>Already have an account? Log in</p>
               </div>
             </Form>
           </Card.Body>

@@ -9,6 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
+    const [channels, setChannels] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -36,8 +37,14 @@ export function AuthProvider({ children }) {
         return auth.signOut();
     }
 
+    const addChannel = (name) => {
+        return setChannels([...channels, name])
+    }
+
     const value = {
         currentUser,
+        channels,
+        addChannel,
         signup,
         login,
         logout

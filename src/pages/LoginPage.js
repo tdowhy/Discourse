@@ -21,7 +21,7 @@ const LoginPage = () => {
                 <div className="login-form-container">
                     <ReactCardFlip isFlipped={flipped} flipDirection="horizontal" style={{ minWidth: "400px", perspective: "2000px" }}>
                         <Login buttonClick={handleClick} />
-                        <SignUp buttonClick={handleClick} />
+                        <SignUp className="flip-card" buttonClick={handleClick} />
                     </ReactCardFlip>
                 </div>
             </Container>

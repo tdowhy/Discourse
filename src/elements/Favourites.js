@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiFillStar } from "react-icons/ai";
 import FontAwesome from 'react-fontawesome';
 import './Favourites.css';
+import { useAuth } from '../contexts/AuthContext';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import { useChannels } from '../contexts/ChannelContext';
+import { useFavourites } from '../contexts/FavouriteContext';
 
 const Favourites = () => {
     const [isOpen, setIsOpen] = useState(true);
+    const { currentUser } = useAuth();
+    const { setSelectedChannel } = useChannels();
+    const { favourites, setFavourites } = useFavourites();
+
+    const db = firebase.firestore();
+    const favouritesRef = db.collection("Users");
+    
+    useEffect (() => {
+        favouritesRef.doc(currentUser.displayName).get().then(uref => setFavourites(uref.data().favourites))
+    })
 
     return (
         <div className="unselectable">
@@ -18,8 +33,8 @@ const Favourites = () => {
                 </div>
                 {isOpen && 
                 <ul>
-                    <li># Channel 1</li>
-                    <li># Channel 2</li>
+                    {favourites && favourites.map(item => 
+                        <li key={item} onClick={() => setSelectedChannel(item)}>{item}</li>)}
                 </ul>}
             </div>
         </div>
