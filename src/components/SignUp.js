@@ -1,11 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthContext';
 import './Login.css';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
-import 'firebase/firestore';
+import 'firebase/database';
 
 const SignUp = (props) => {
 
@@ -16,26 +16,52 @@ const SignUp = (props) => {
     const { signup } = useAuth();
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false);
+    const [general, setGeneral] = useState([])
     const history = useHistory();
 
-    const db = firebase.firestore();
-    const usersRef = db.collection("Users");
+    // const db = firebase.firestore();
+    // const usersRef = db.collection('Users');
+    // const channelsRef = db.collection('Chat').doc('General').collection('userList').doc('usersPresent');
+    const db = firebase.database(); 
+    const usersRef = db.ref('Users')
+    const channelsRef = db.ref('Chats').child('General').child('usersPresent');
+
+    useEffect (() => {
+      // channelsRef.get().then(cref => setGeneral(cref.data().users));
+      channelsRef.get().then(cref => setGeneral(cref.val()))
+    }, [])
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Passwords do not match.');
-        }
-        try {
-            setError('');
-            setLoading(true);
-            await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
-            await usersRef.doc(usernameRef.current.value).set({favourites: [], channels: ['General'], directMessages: []})
-            history.push('/')
-        } catch {
-            setError('Sign up failed.')
-        }
-        setLoading(false);
+      setError('');
+      e.preventDefault();
+      if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+          return setError('Passwords do not match.');
+      } 
+
+      const uref = await usersRef.child(usernameRef.current.value).get()
+      if (uref.val() !== null) {
+        return setError('Username already exists')
+      }
+      // const uref = await usersRef.doc(usernameRef.current.value).get()
+      // if (uref.exists) {
+      //   return setError('Username already exists')
+      // }
+      try {
+          setLoading(true);
+          await signup(emailRef.current.value, passwordRef.current.value, usernameRef.current.value);
+          await db.ref('Users/' + usernameRef.current.value).set({
+            channels: ['General']
+          })
+          await channelsRef.update([...general, usernameRef.current.value])
+          .then(setLoading(false))
+          // await usersRef.doc(usernameRef.current.value).set({favourites: [], channels: ['General'], directMessages: []});
+          // console.log(general)
+          // await channelsRef.update({users: [...general, usernameRef.current.value]})
+          // .then(setLoading(false));
+          history.push('/');
+      } catch {
+          setError('An account with that email already exists.');
+      }
     }
 
     return (

@@ -19,8 +19,8 @@ const Channels = () => {
     const createRef = useRef();
     const selectedRef = useRef();
     const db = firebase.firestore();
-    const channelsRef = db.collection("chat");
-    const usersRef = db.collection("Users");
+    const channelsRef = db.collection('Chat');
+    const usersRef = db.collection('Users');
     // const user = useCollectionData(usersRef, {idField: 'id'}) 
     // const user = usersRef.doc('Tanner').get().then(docref => console.log(docref.data().channels))
     // const [channels] = useCollectionData(channelsRef, {idField: 'id'})
@@ -35,7 +35,8 @@ const Channels = () => {
         // await channelsRef.add({
         //     title: createRef.current.value
         // })
-        await channelsRef.doc(createRef.current.value).set({text: "hello"});
+        await channelsRef.doc(createRef.current.value).collection('userList').doc('creator').set({username: currentUser.displayName});
+        await channelsRef.doc(createRef.current.value).collection('userList').doc('usersPresent').set({users: [currentUser.displayName]});
         await usersRef.doc(currentUser.displayName).update({channels: [...channels, createRef.current.value]})
         // setChannels([...channels, createRef.current.value])
         // console.log(channels)

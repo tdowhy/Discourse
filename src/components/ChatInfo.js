@@ -9,16 +9,26 @@ import { useFavourites } from '../contexts/FavouriteContext';
 
 const ChatInfo = () => {
     const [favourite, setFavourite] = useState(false);
+    const [numMembers, setNumMembers] = useState(1);
     const { selectedChannel } = useChannels();
     const { currentUser } = useAuth();
     const db = firebase.firestore();
-    const usersRef = db.collection("Users");
-    const { favourites } = useFavourites();
+    const usersRef = db.collection('Users');
+    const channelsRef = db.collection('Chat');
+    const { favourites, setFavourites } = useFavourites();
 
     useEffect (() => {
         usersRef.doc(currentUser.displayName).get()
-        // .then(uref => setFavourites(uref.data().favourites))
+        .then(uref => setFavourites(uref.data().favourites))
+        channelsRef.doc(selectedChannel).collection('userList').doc('usersPresent').get()
+        .then(cref => setNumMembers(cref.data().users.length))
+        // users.doc(currentUser.displayName).collection('userList'.doc()))
     })
+
+    // useEffect (() => {
+    //     channelsRef.doc(selectedChannel).collection('userList').doc('usersPresent').get()
+    //     .then(cref => setNumMembers(cref.data().users.length))
+    // }, [])
 
     const handleClick = async (e) => {
         e.preventDefault();
@@ -40,7 +50,11 @@ const ChatInfo = () => {
                     : <AiOutlineStar onClick={handleClick} className="star-icon" size={50}/>}
                     <input className="rounded border-0 search-bar" type="text" placeholder="Search messages..." />
                     </div>
-                <p className="num-members">4 members</p>
+                    {numMembers === 1 ? (
+                        <p className="num-members">1 member</p>
+                    ) : (
+                        <p className="num-members"> {numMembers} members</p>
+                    )}
             </div>
         </div>
     )
