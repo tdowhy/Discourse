@@ -12,16 +12,16 @@ const ChatInfo = () => {
     const [numMembers, setNumMembers] = useState(1);
     const { selectedChannel } = useChannels();
     const { currentUser } = useAuth();
-    const db = firebase.firestore();
-    const usersRef = db.collection('Users');
-    const channelsRef = db.collection('Chat');
+    const db = firebase.database();
+    const usersRef = db.ref('Users');
+    const channelsRef = db.ref('Chats');
     const { favourites, setFavourites } = useFavourites();
 
     useEffect (() => {
-        usersRef.doc(currentUser.displayName).get()
-        .then(uref => setFavourites(uref.data().favourites))
-        channelsRef.doc(selectedChannel).collection('userList').doc('usersPresent').get()
-        .then(cref => setNumMembers(cref.data().users.length))
+        usersRef.child(currentUser.displayName).get()
+        .then(uref => setFavourites(uref.val().favourites))
+        channelsRef.child(selectedChannel).get()
+        .then(cref => setNumMembers(cref.val().usersPresent.length))
         // users.doc(currentUser.displayName).collection('userList'.doc()))
     })
 
@@ -34,9 +34,13 @@ const ChatInfo = () => {
         e.preventDefault();
         setFavourite(!favourite);
         if (!favourite) {
-            usersRef.doc(currentUser.displayName).update({favourites: [...favourites, selectedChannel]})
+            if (favourites) {
+                usersRef.child(currentUser.displayName).update({favourites: [...favourites, selectedChannel]})
+            } else {
+                usersRef.child(currentUser.displayName).update({favourites: [selectedChannel]})
+            }
         } else {
-            usersRef.doc(currentUser.displayName).update({favourites: favourites.filter(item => item !== selectedChannel)})
+            usersRef.child(currentUser.displayName).update({favourites: favourites.filter(item => item !== selectedChannel)})
         }
         console.log(favourites)
     }

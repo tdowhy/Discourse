@@ -27,7 +27,7 @@ const Channels = () => {
     const { setSelectedChannel } = useChannels();
 
     useEffect (() => {
-        usersRef.doc(currentUser.displayName).get().then(uref => setChannels(uref.data().channels))
+        usersRef.child(currentUser.displayName).get().then(uref => setChannels(uref.val().channels))
     })
 
     const handleSubmit = async (e) => {
@@ -35,9 +35,12 @@ const Channels = () => {
         // await channelsRef.add({
         //     title: createRef.current.value
         // })
-        await channelsRef.doc(createRef.current.value).collection('userList').doc('creator').set({username: currentUser.displayName});
-        await channelsRef.doc(createRef.current.value).collection('userList').doc('usersPresent').set({users: [currentUser.displayName]});
-        await usersRef.doc(currentUser.displayName).update({channels: [...channels, createRef.current.value]})
+        await channelsRef.child(createRef.current.value).set({
+            username: currentUser.displayName,
+            usersPresent: [currentUser.displayName]
+        });
+        // await channelsRef.child(createRef.current.value).collection('userList').doc('usersPresent').set({users: [currentUser.displayName]});
+        await usersRef.child(currentUser.displayName).update({channels: [...channels, createRef.current.value]})
         // setChannels([...channels, createRef.current.value])
         // console.log(channels)
         // await addChannel(createRef.current.value);
