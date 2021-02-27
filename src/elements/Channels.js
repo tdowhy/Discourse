@@ -18,9 +18,9 @@ const Channels = () => {
     const { currentUser } = useAuth();
     const createRef = useRef();
     const selectedRef = useRef();
-    const db = firebase.firestore();
-    const channelsRef = db.collection('Chat');
-    const usersRef = db.collection('Users');
+    const db = firebase.database();
+    const channelsRef = db.ref('Chats');
+    const usersRef = db.ref('Users');
     // const user = useCollectionData(usersRef, {idField: 'id'}) 
     // const user = usersRef.doc('Tanner').get().then(docref => console.log(docref.data().channels))
     // const [channels] = useCollectionData(channelsRef, {idField: 'id'})
