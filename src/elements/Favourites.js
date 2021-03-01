@@ -14,12 +14,15 @@ const Favourites = () => {
     const { setSelectedChannel } = useChannels();
     const { favourites, setFavourites } = useFavourites();
 
-    const db = firebase.database();
-    const favouritesRef = db.ref("Users");
+    // const db = firebase.database();
+    // const favouritesRef = db.ref("Users");
+    const db = firebase.firestore();
+    const favouritesRef = db.collection('Users').doc(currentUser.displayName);
     
     useEffect (() => {
-        favouritesRef.child(currentUser.displayName).get().then(uref => setFavourites(uref.val().favourites))
-    })
+        // favouritesRef.child(currentUser.displayName).get().then(uref => setFavourites(uref.val().favourites))
+        favouritesRef.get().then(uref => setFavourites(uref.data().favourites))
+    }, [favourites])
 
     return (
         <div className="unselectable">

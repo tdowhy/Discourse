@@ -18,33 +18,45 @@ const Channels = () => {
     const { currentUser } = useAuth();
     const createRef = useRef();
     const selectedRef = useRef();
-    const db = firebase.database();
-    const channelsRef = db.ref('Chats');
-    const usersRef = db.ref('Users');
+    // const db = firebase.database();
+    // const channelsRef = db.ref('Chats');
+    // const usersRef = db.ref('Users');
+    const db = firebase.firestore();
+    const usersRef = db.collection('Users').doc(currentUser.displayName);
+    const channelsRef = db.collection('Chat');
     // const user = useCollectionData(usersRef, {idField: 'id'}) 
     // const user = usersRef.doc('Tanner').get().then(docref => console.log(docref.data().channels))
     // const [channels] = useCollectionData(channelsRef, {idField: 'id'})
     const { setSelectedChannel } = useChannels();
 
     useEffect (() => {
-        usersRef.child(currentUser.displayName).get().then(uref => setChannels(uref.val().channels))
-    })
+        // usersRef.child(currentUser.displayName).get().then(uref => setChannels(uref.val().channels))
+        usersRef.get().then(uref => setChannels(uref.data().channels))
+    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault(); 
+        const a = channelsRef.doc(createRef.current.value).collection('userList').doc('creator').set({username: currentUser.displayName});
+        const b = channelsRef.doc(createRef.current.value).collection('userList').doc('usersPresent').set({users: [currentUser.displayName]});
+        const c = usersRef.update({channels: [...channels, createRef.current.value]})
+        Promise.all([a,b,c])
+        setChannels([...channels, createRef.current.value])
+        // await channelsRef.doc(createRef.current.value).collection('userList').doc('creator').set({username: currentUser.displayName});
+        // await channelsRef.doc(createRef.current.value).collection('userList').doc('usersPresent').set({users: [currentUser.displayName]});
+        setCreate(false);
+        // await usersRef.update({channels: [...channels, createRef.current.value]})
         // await channelsRef.add({
         //     title: createRef.current.value
         // })
-        await channelsRef.child(createRef.current.value).set({
-            username: currentUser.displayName,
-            usersPresent: [currentUser.displayName]
-        });
+        // await channelsRef.child(createRef.current.value).set({
+        //     username: currentUser.displayName,
+        //     usersPresent: [currentUser.displayName]
+        // });
         // await channelsRef.child(createRef.current.value).collection('userList').doc('usersPresent').set({users: [currentUser.displayName]});
-        await usersRef.child(currentUser.displayName).update({channels: [...channels, createRef.current.value]})
+        // await usersRef.child(currentUser.displayName).update({channels: [...channels, createRef.current.value]})
         // setChannels([...channels, createRef.current.value])
         // console.log(channels)
         // await addChannel(createRef.current.value);
-        setCreate(false);
     }
 
     return (

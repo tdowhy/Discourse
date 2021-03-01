@@ -12,18 +12,48 @@ const ChatInfo = () => {
     const [numMembers, setNumMembers] = useState(1);
     const { selectedChannel } = useChannels();
     const { currentUser } = useAuth();
-    const db = firebase.database();
-    const usersRef = db.ref('Users');
-    const channelsRef = db.ref('Chats');
+    // const db = firebase.database();
+    // const usersRef = db.ref('Users').child(currentUser.displayName);
+    // const channelsRef = db.ref('Chats').child(selectedChannel);
+    const db = firebase.firestore();
+    const usersRef = db.collection('Users').doc(currentUser.displayName);
+    const channelsRef = db.collection('Chat').doc(selectedChannel);
     const { favourites, setFavourites } = useFavourites();
+    // const [favourite, setFavourite] = useState(favourites && selectedChannel in favourites);
 
     useEffect (() => {
-        usersRef.child(currentUser.displayName).get()
-        .then(uref => setFavourites(uref.val().favourites))
-        channelsRef.child(selectedChannel).get()
-        .then(cref => setNumMembers(cref.val().usersPresent.length))
-        // users.doc(currentUser.displayName).collection('userList'.doc()))
-    })
+        if (typeof favourites !== 'undefined' && favourites.includes(selectedChannel)) {
+            setFavourite(true)
+        } else {
+            setFavourite(false)
+        }
+    }, [selectedChannel])
+        // const fetchData = async () => {
+        //     usersRef.on('value', snapshot => {
+        //             setFavourites(snapshot.val().favourites)
+        //         })
+        // }
+        // fetchData();
+        // return () => {
+        //     usersRef.off('value', setFavourites([]))
+        // }
+            // setFavourites(snapshot.val().favourites)
+        // })
+        // channelsRef.on('value', snapshot => {
+        //     setNumMembers(snapshot.val().usersPresent.length)
+        // })
+        // usersRef.get()
+        // .then(uref => setFavourites(uref.val().favourites))
+        // channelsRef.get()
+        // .then(cref => setNumMembers(cref.val().usersPresent.length))
+        // if (typeof favourites !== 'undefined' && favourites.includes(selectedChannel)) {
+        //     setFavourite(true)
+        // } else {
+        //     setFavourite(false)
+        // }
+        // usersRef.get().then(cref => setFavourites(cref.data().favourites))
+    // }, [favourite, favourites])
+    // }, [favourite])
 
     // useEffect (() => {
     //     channelsRef.doc(selectedChannel).collection('userList').doc('usersPresent').get()
@@ -35,14 +65,13 @@ const ChatInfo = () => {
         setFavourite(!favourite);
         if (!favourite) {
             if (favourites) {
-                usersRef.child(currentUser.displayName).update({favourites: [...favourites, selectedChannel]})
+                usersRef.update({favourites: [...favourites, selectedChannel]})
             } else {
-                usersRef.child(currentUser.displayName).update({favourites: [selectedChannel]})
+                usersRef.update({favourites: [selectedChannel]})
             }
         } else {
-            usersRef.child(currentUser.displayName).update({favourites: favourites.filter(item => item !== selectedChannel)})
+            usersRef.update({favourites: favourites.filter(item => item !== selectedChannel)})
         }
-        console.log(favourites)
     }
 
     return (
