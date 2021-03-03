@@ -19,11 +19,11 @@ const SignIn = (props) => {
             setError('');
             setLoading(true);
             await login(emailRef.current.value, passwordRef.current.value);
+            setLoading(false);
             history.push('/')
         } catch {
             setError('Sign in failed.')
         }
-        setLoading(false);
     }
 
     return (
