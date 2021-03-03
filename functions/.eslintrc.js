@@ -8,9 +8,4 @@ module.exports = {
     "eslint:recommended",
     "google",
   ],
-  rules: {
-    quotes: ["error", "double"],
-    "no-unused-vars": "off"
-  },
-  
 };
