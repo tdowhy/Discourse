@@ -14,7 +14,7 @@ const Sidebar = (props) => {
             <div className="message-container">
                 <Favourites favourite={props.favourite} />
                 <Channels />
-                <DirectMessages />
+                {/* <DirectMessages /> */}
             </div>
         </div>
     )

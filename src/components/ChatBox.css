@@ -28,6 +28,11 @@
         color: #f8f8ff;
         /* min-width: 700px; */
     }
+
+    .chat-messages {
+        height: 80vh;
+    }
+
     .inp-bar {
         /* margin-top: 770px; */
         /* margin-top: 70vh; */

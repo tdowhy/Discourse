@@ -24,7 +24,7 @@ const ChatInfo = (props) => {
     // const channelsRef = db.ref('Chats').child(selectedChannel);
     const db = firebase.firestore();
     const usersRef = db.collection('Users').doc(currentUser.displayName);
-    const channelsRef = db.collection('Chat').doc(selectedChannel);
+    const channelsRef = db.collection('Chat').doc(selectedChannel).collection('userList').doc('usersPresent');
     const { favourites, setFavourites } = useFavourites();
     const [drop, setDrop] = useState(false);
     const [viewMembers, setViewMembers] = useState(false);
@@ -36,6 +36,8 @@ const ChatInfo = (props) => {
         } else {
             props.setFavourite(false)
         }
+        channelsRef.get()
+        .then(cref => setNumMembers(cref.data().users.length))
     }, [selectedChannel])
 
         // const fetchData = async () => {
