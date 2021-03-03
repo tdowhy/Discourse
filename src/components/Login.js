@@ -27,7 +27,6 @@ const SignIn = (props) => {
     }
 
     return (
-        <>
         <Card>
         <Card.Body className="login-ctnr">
           <h2 className="text-center mb-4">Sign In</h2>
@@ -42,7 +41,7 @@ const SignIn = (props) => {
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <div className="text-center">
-            <Button id="login-btn" disabled={loading} className="w-50 login-btn" type="submit">
+            <Button disabled={loading} id="login-btn" className="w-50" type="submit">
               Sign In
             </Button>
             <p className="unselectable" onClick={props.buttonClick}>Don't have an account? Sign Up</p>
@@ -50,7 +49,6 @@ const SignIn = (props) => {
           </Form>
         </Card.Body>
       </Card>
-        </>
     )
 }
 

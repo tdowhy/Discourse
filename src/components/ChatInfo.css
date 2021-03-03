@@ -1,16 +1,7 @@
 .chat-info {
-    margin-left: 210px;
-    height: 120px;
-    width: 88%;
-    margin-top: 10px;
     background-color: #414141;
-    color: #f8f8ff;
-}
-
-.chat-info-content {
-    margin-left: 30px;
-    padding-top: 10px;
-    display: flex;
+    margin: 10px;
+    color: white
 }
 
 .channel-name {
@@ -18,22 +9,87 @@
     margin-bottom: 0;
 }
 
+.star-icon{ 
+    margin-top: 10px;
+}
+
+.chat-info-content {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 .num-members {
-    font-size: 100%;
-    margin-left: 30px;
+    justify-content: center;
 }
 
 .search-bar {
-    white-space: nowrap;
-    height: 20px;
-    margin-top: 25px;
-    margin-left: 70%;
+    display: none;
 }
 
-.search-bar:focus {
-    outline: none;
+.sidenav {
+    position: fixed;
+    z-index: 1;
 }
 
-.star-icon{ 
-    margin-top: 10px;
+.bot-box {
+    /* position: relative; */
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+    .chat-info {
+        margin-left: 220px;
+        height: 120px;
+        width: 87%;
+        margin-top: 10px;
+    }
+    
+    .chat-info-content {
+        margin-left: 30px;
+        padding-top: 10px;
+        display: flex;
+    }
+    
+    .num-members {
+        font-size: 100%;
+        margin-left: 30px;
+    }
+    
+    .search-bar {
+        white-space: nowrap;
+        height: 20px;
+        margin-top: 25px;
+        /* margin-left: 70%; */
+        margin-left: 100px;
+        display: initial;
+    }
+    
+    .search-bar:focus {
+        outline: none;
+    }
+
+    .bars {
+        display: none;
+    }
+
+    .bot-box {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ppl {
+        top: 0;
+        right: 0;
+        position: absolute;
+        margin-right: 10px;
+    }
+    
 }

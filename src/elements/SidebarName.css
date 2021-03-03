@@ -4,10 +4,6 @@
     height: 50px;
 }
 
-.unselectable span {
-    font-size: 100%;
-}
-
 ul {
     list-style-type: none;
     font-size: 75%;
@@ -21,13 +17,41 @@ ul {
 li {
     background-color: #525252;
     padding: 3px;
+    width: 200px;
 }
 
 li:hover {
     background-color: #313131
 }
 
-.sidebar-name-content {
-    margin-top: 65px;
-    margin-left: 15px;
+.sb-body {
+    font-size: 150%;
+}
+
+.sb-card .modal-content {
+    background-color: #525252;
+    color: white;
+}
+
+.sb-body {
+    height: 80px;
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+
+    
+    .unselectable span {
+        font-size: 100%;
+    }
+    
+    
+    .sidebar-name-content {
+        margin-top: 65px;
+        margin-left: 15px;
+    }
+
+    li {
+        width: 80px;
+    }
 }

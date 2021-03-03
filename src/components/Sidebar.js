@@ -6,18 +6,16 @@ import Channels from '../elements/Channels';
 import DirectMessages from '../elements/DirectMessages';
 import Favourites from '../elements/Favourites';
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     return (
-        <div className="unselectable">
-        <div className="sidebar">
+        <div className="sidebar undelectable">
             <Logo size={50} className="logo" />
             <SidebarName />
             <div className="message-container">
-                <Favourites />
+                <Favourites favourite={props.favourite} />
                 <Channels />
                 <DirectMessages />
             </div>
-        </div>
         </div>
     )
 }

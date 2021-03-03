@@ -1,62 +1,73 @@
-.chat-box {
-    margin-top: 10px;
-    width: 88%;
-    margin-left: 210px;
-    height: 70%;
-    /* height: 85vh; */
-    background-color: #414141;
-    color: #f8f8ff;
-    /* min-width: 700px; */
-}
-.inp-bar {
-    /* margin-top: 770px; */
-    /* margin-top: 70vh; */
-    /* width: 100%; */
-    margin-left: 40px;
-    /* min-width: 700px; */
+.form-ctnr {
+    width: 95%;
 }
 
-.input-group {
-    width: 100%;
-    min-width: 1200px;
-}
-
-.message-bar {
-    /* margin-top: 6px; */
-    /* margin-top: 10vh; */
-    /* width: 90%; */
-    width: 100%;
+.t {
+    justify-content: center;
 }
 
 .chat-messages {
     overflow-y: scroll;
     /* height: 80%; */
-    height: 80vh;
+    height: 66vh;
 }
 
-.message-bar:focus {
-    outline: none;
+.chat-box {
+    height: 60vh;
 }
 
-.form-ctnr {
-    width: 90%;
-    /* min-width: 1200px; */
-    /* height: 10vh; */
+/* Desktop */
+@media only screen and (min-width: 768px) {
+    .chat-box {
+        margin-top: 10px;
+        width: 87%;
+        margin-left: 220px;
+        /* height: 70%; */
+        height: 84vh;
+        background-color: #414141;
+        color: #f8f8ff;
+        /* min-width: 700px; */
+    }
+    .inp-bar {
+        /* margin-top: 770px; */
+        /* margin-top: 70vh; */
+        /* width: 100%; */
+        margin-left: 40px;
+        /* min-width: 700px; */
+    }
+    
+    .input-group {
+        width: 100%;
+        min-width: 1200px;
+    }
+    
+    .message-bar {
+        /* margin-top: 6px; */
+        /* margin-top: 10vh; */
+        /* width: 90%; */
+        width: 100%;
+    }
+    
+    .message-bar:focus {
+        outline: none;
+    }
+    
+    .form-ctnr {
+        width: 90%;
+        /* min-width: 1200px; */
+        /* height: 10vh; */
+    }
+    
+    .emoji-btn {
+        height: 40px;
+        width: 50px;
+        background-color: #CA3E47!important;
+        color: #f8f8ff!important;
+        /* margin-bottom: ; */
+        /* margin-left: 0 */
+    }
+    
+    .emoji-mart-category-label {
+        display: none;
+    } 
 }
-
-.emoji-btn {
-    height: 40px;
-    width: 50px;
-    background-color: #CA3E47!important;
-    color: #f8f8ff!important;
-    /* margin-bottom: ; */
-    /* margin-left: 0 */
-}
-
-.emoji-mart-category-label {
-    display: none;
-}
-
-/* .button {
-    background-color: #CA3E47;
-} */

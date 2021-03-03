@@ -16,11 +16,11 @@ const ChatMessage = (props) => {
         // </div>
         // <span className="msg-text">{text}</span>
         // </>
-        <div className={`px-3 py-2 d-flex text-nowrap items-start ${messageClass}`}>
+        <div className={`px-3 py-1 d-flex text-nowrap items-start a ${messageClass}`}>
         <div>
           <img className={`d-block object-cover ${imageClass} prof-pic`} src={imgURL} alt="{name}'s pfp" />
         </div>
-        <div className={`d-block break-words pl-2 pr-2 rounded ${messageBodyClass} message-body`}>
+        <div className={`d-block pl-2 pr-2 rounded ${messageBodyClass} message-body`}>
           <p className="text-box">{name}</p>
           <p>{text}</p>
         </div>

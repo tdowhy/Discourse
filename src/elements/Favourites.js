@@ -8,8 +8,8 @@ import 'firebase/firestore';
 import { useChannels } from '../contexts/ChannelContext';
 import { useFavourites } from '../contexts/FavouriteContext';
 
-const Favourites = () => {
-    const [isOpen, setIsOpen] = useState(true);
+const Favourites = (props) => {
+    const [isOpen, setIsOpen] = useState(false);
     const { currentUser } = useAuth();
     const { setSelectedChannel } = useChannels();
     const { favourites, setFavourites } = useFavourites();
@@ -22,7 +22,7 @@ const Favourites = () => {
     useEffect (() => {
         // favouritesRef.child(currentUser.displayName).get().then(uref => setFavourites(uref.val().favourites))
         favouritesRef.get().then(uref => setFavourites(uref.data().favourites))
-    }, [favourites])
+    }, [props.favourite])
 
     return (
         <div className="unselectable">

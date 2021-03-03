@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthContext';
-import './Login.css';
+import './SignUp.css';
 import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase/app';
@@ -65,12 +65,11 @@ const SignUp = (props) => {
     }
 
     return (
-        <>
         <Card>
-          <Card.Body id="signup-ctnr" className="signup-container">
+          <Card.Body className="signup-container">
             <h2 className="text-center mb-4">Sign Up</h2>
             {error && <Alert variant="danger">{error}</Alert>}
-            <Form className="form-floating" onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
             <Form.Group id="username">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="text" ref={usernameRef} required />
@@ -88,7 +87,7 @@ const SignUp = (props) => {
                 <Form.Control type="password" ref={passwordConfirmRef} required />
               </Form.Group>
               <div className="text-center">
-                <Button id="sign-btn" disabled={loading} className="w-50" type="submit">
+                <Button id="signup-btn" disabled={loading} className="w-50" type="submit">
                   Sign Up
                 </Button>
                 <p className="unselectable" onClick={props.buttonClick}>Already have an account? Log in</p>
@@ -96,7 +95,6 @@ const SignUp = (props) => {
             </Form>
           </Card.Body>
         </Card>
-        </>
     )
 }
 

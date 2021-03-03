@@ -1,0 +1,18 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "sidebar-div chatinfo-div chatinfo-div chatinfo-div chatinfo-div chatinfo-div"
+      "sidebar-div chatbox-div chatbox-div chatbox-div chatbox-div chatbox-div"
+      "sidebar-div chatbox-div chatbox-div chatbox-div chatbox-div chatbox-div"
+      "sidebar-div chatbox-div chatbox-div chatbox-div chatbox-div chatbox-div"
+      "sidebar-div chatbox-div chatbox-div chatbox-div chatbox-div chatbox-div";
+  }
+  
+  .sidebar-div { grid-area: sidebar-div; background-color: red; }
+  
+  .chatinfo-div { grid-area: chatinfo-div; background-color: blue;}
+  
+  .chatbox-div { grid-area: chatbox-div; background-color: yellow; }

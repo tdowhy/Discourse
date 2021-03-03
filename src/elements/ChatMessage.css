@@ -5,13 +5,12 @@
     margin-right: 15px;
 }
 
-.prof-name {
-    font-size: 125%;
+.received-message-bg {
+    background-color: #525252;
 }
 
-.text-box {
-    font-size: 0.75rem;
-    line-height: 1rem;
+.sent-message-bg {
+    background-color: #CA3E47;
 }
 
 .msg-text {
@@ -19,14 +18,33 @@
     /* font-size: 75%; */
 }
 
-.received-message-bg {
-    background-color: #CA3E47;
+.prof-name {
+    font-size: 125%;
 }
 
-.sent-message-bg {
-    background-color: #CA3E47;
+.text-box {
+    font-size: 0.75rem;
+    /* line-height: 1rem; */
 }
 
 .message-body {
-    width: 93%;
+    /* width: 67%; */
+    width: 62%;
+}
+
+.a {
+    color: white;
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+    
+    .msg-text {
+        margin-left: 50px;
+        /* font-size: 75%; */
+    }
+    
+    .message-body {
+        width: 93%;
+    }
 }

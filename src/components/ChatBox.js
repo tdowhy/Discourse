@@ -19,7 +19,7 @@ const ChatBox = () => {
     const db = firebase.firestore()
 
     const messagesRef = db.collection('Chat').doc(selectedChannel).collection('messages')
-    const query = messagesRef.orderBy('createdAt').limit(25);
+    const query = messagesRef.orderBy('createdAt').limit(50);
     const [messages] = useCollectionData(query, {idField: 'id'});
 
     const scrollToBottom = () => {
@@ -50,11 +50,11 @@ const ChatBox = () => {
                 </div>
             </div>
             {emojiOpen ? <Picker theme='dark' set='apple' perLine={16} sheetSize={24} style={{ position: 'absolute', bottom: '55px', left: '215px', zIndex: 1, width: '400px'}} /> : null}
-            <div className="input-group mb-3">
-                <div className="input-group-prepend inp-bar">
+            <div className="input-group mb-3 t">
+                {/* <div className="input-group-prepend inp-bar">
                     <button className="btn emoji-btn" type="button" onClick={() => setEmojiOpen(!emojiOpen)}><HiEmojiHappy size={20} /></button>
-                    {/* {emojiOpen ? <Picker className="emoji-panel" /> : null} */}
-                </div>
+                    {emojiOpen ? <Picker className="emoji-panel" /> : null}
+                </div> */}
                 <form className="form-ctnr" onSubmit={handleSubmit}>
                 <input type="text" value={formValue} onChange={(e) => setFormValue(e.target.value)} className="form-control message-bar" placeholder="" aria-label="" aria-describedby="basic-addon1" />
                 </form>

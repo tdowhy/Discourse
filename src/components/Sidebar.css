@@ -9,6 +9,7 @@
     top: 0;
     left: 0;
     color: #f8f8ff;
+    display: none;
 }
 
 .logo {
@@ -23,4 +24,11 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+/* Desktop */
+@media only screen and (min-width: 768px) {
+    .sidebar {
+        display: initial;
+    }
 }
