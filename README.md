@@ -1,6 +1,6 @@
 # Discourse
 
-This project is a chat application similar to [Slack](https://slack.com/intl/en-ca/). It allows users to create, join, and chat in different channels. This project uses [Firebase](https://firebase.google.com/) for authentication, Firestore for the chat channels, and Firebase Storage for updating profile pictures.
+This project is a chat application similar to [Slack](https://slack.com/intl/en-ca/). It allows users to create, join, and chat in different channels. This project uses [Firebase](https://firebase.google.com/) for authentication, Firestore for the chat channels, and Firebase Storage for updating profile pictures. State is managed using the context API.
 
 A Demo is hosted [here](https://discourse-2d235.web.app/login).
 
