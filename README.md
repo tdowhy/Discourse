@@ -1,4 +1,19 @@
-# Getting Started with Create React App
+# Discourse
+
+This project is a chat application similar to [Slack](https://slack.com/intl/en-ca/). It allows users to create, join, and chat in different channels. This project uses [Firebase](https://firebase.google.com/) for authentication, Firestore for the chat channels, and Firebase Storage for updating profile pictures.
+
+A Demo is hosted [here](https://discourse-2d235.web.app/login).
+
+## Screen Shots
+
+### Login Page
+![HomePage](/screenshots/Login.png?raw=true )
+
+### Chat Page
+![HomeMobile](/screenshots/ChatPage.png?raw=true )
+
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
